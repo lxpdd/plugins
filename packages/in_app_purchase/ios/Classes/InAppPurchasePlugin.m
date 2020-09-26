@@ -179,8 +179,10 @@
   NSNumber *quantity = [paymentMap objectForKey:@"quantity"];
   payment.quantity = (quantity != nil) ? quantity.integerValue : 1;
   if (@available(iOS 8.3, *)) {
-    payment.simulatesAskToBuyInSandbox =
+    if([NSNull null] != [paymentMap objectForKey:@"simulatesAskToBuyInSandbox"]){
+        payment.simulatesAskToBuyInSandbox =
         [[paymentMap objectForKey:@"simulatesAskToBuyInSandbox"] boolValue];
+    }
   }
 
   if (![self.paymentQueueHandler addPayment:payment]) {
